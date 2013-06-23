@@ -1,0 +1,8 @@
+#### EMI 3 (Monte Bianco) - Base repository - must be enabled ####
+deb http://emisoft.web.cern.ch/emisoft/dist/EMI/3/debian/ squeeze main third-party
+deb-src http://emisoft.web.cern.ch/emisoft/dist/EMI/3/debian/ squeeze main third-party
+
+#### EMI 3 (Monte Bianco) - Updates to Base repository - should be enabled ####
+deb http://emisoft.web.cern.ch/emisoft/dist/EMI/3/debian/ squeeze-updates main
+deb-src http://emisoft.web.cern.ch/emisoft/dist/EMI/3/debian/ squeeze-updates main
+
