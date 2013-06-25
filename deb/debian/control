@@ -1,0 +1,12 @@
+Source:  emi-release
+Build-Depends:  debhelper (>> 6.0.0)
+Section:  devel
+Priority:  optional
+Maintainer:  Cristina Aiftimiei <aiftim@pd.infn.it>
+Standards-Version:  3.9.2
+
+Package:  emi-release
+Architecture:  all
+Depends:   
+Description:  EMI middleware release files
+ contains emi-release version and protection configuration of the EMI repositories

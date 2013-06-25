@@ -1,15 +1,15 @@
-PACKAGE = emi-release
-NAME = emi-release
-VERSION = 3.0.0
-RELEASE = 2
+name=emi-release
+prefix=/
 
-####################################################################
-# Distribution Makefile
-####################################################################
+# needed dirs
+debbuild_dir=$(shell pwd)/debbuild
+deb_version=3.0.0
+deb_age=2
+here=$(shell pwd)
 
-.PHONY: configure install clean rpm
+.PHONY: clean install deb
 
-all: configure
+all: deb
 
 ####################################################################
 # Install
@@ -29,18 +29,26 @@ install:
 # Build Distribution
 ####################################################################
 
-rpm:
-	@echo "> Creating rpm..."
-	@mkdir -p  rpmbuild/RPMS/noarch
-	@mkdir -p  rpmbuild/SRPMS/
-	@mkdir -p  rpmbuild/SPECS/
-	@mkdir -p  rpmbuild/SOURCES/
-	@mkdir -p  rpmbuild/BUILD/
-	@tar --gzip --exclude='*svn*' -cf rpmbuild/SOURCES/${PACKAGE}.src.tgz *
-	@sed -e s/VV/$(VERSION)/ -e s/NNAME/$(NAME)/ -e s/RR/$(RELEASE)/ emi-release.spec > specfile_tmp.spec
-	@rpmbuild -ba specfile_tmp.spec
-	@rm -f specfile_tmp.spec
+DISTFILES=etc debian
+
+srcdist:
+        mkdir -p $(here)/$(name)-$(deb_version)
+        @cp -a $(DISTFILES) $(here)/$(name)-$(deb_version)
+        cd $(here) && tar cvz --exclude='*.github*' -f $(name)_$(deb_version).orig.tar.gz $(name)-$(deb_version)/*
+        @rm -rf $(name)-$(deb_version)
+
+prepare-debbuilddir: srcdist
+        @mkdir -p $(debbuild_dir)
+        @cp $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)/$(name)_$(deb_version).orig.tar.gz
+        @cd $(debbuild_dir) && tar xzvf $(name)_$(deb_version).orig.tar.gz
+        @echo "done"
+
+deb-src: prepare-debbuilddir
+        cd $(debbuild_dir) && dpkg-source -b $(name)-$(deb_version)
+
+deb: print-info deb-src
+        cd $(debbuild_dir)/$(name)-$(deb_version) && debuild -us -uc
 
 clean:
-	@echo "> Cleaning..."
-	@rm -rf rpmbuild
+        @rm -rf $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)
+

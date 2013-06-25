@@ -1,0 +1,3 @@
+etc/emi-release
+etc/apt/sources.list.d/emi3.list
+etc/apt/preferences.d/emi3

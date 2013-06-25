@@ -1,12 +1,13 @@
-emi-release (3.0.0-2.deb6.1) stable; urgency=low
+emi-release (3.0.0-2) unstable; urgency=low
 
   * Switch to dpkg-source 3.0 (quilt) format
 
- -- nobody <nobody@lxets-deb664-15.cern.ch>  Thu, 07 Mar 2013 15:10:15 +0000
+ -- Cristina Aiftimiei <aiftim@pd.infn.it>  Thu, 07 Mar 2013 15:10:15 +0000
 
 emi-release (3.0.0-2.deb6) stable; urgency=low
 
   * Release 3.0.0-2.deb6
     
  -- ETICS <etics-support@cern.ch>  Thu, 07 Mar 2013 15:10:14 +0000
+
 
