@@ -32,23 +32,23 @@ install:
 DISTFILES=etc debian
 
 srcdist:
-        mkdir -p $(here)/$(name)-$(deb_version)
-        @cp -a $(DISTFILES) $(here)/$(name)-$(deb_version)
-        cd $(here) && tar cvz --exclude='*.github*' -f $(name)_$(deb_version).orig.tar.gz $(name)-$(deb_version)/*
-        @rm -rf $(name)-$(deb_version)
+	mkdir -p $(here)/$(name)-$(deb_version)
+	@cp -a $(DISTFILES) $(here)/$(name)-$(deb_version)
+	cd $(here) && tar cvz --exclude='*.github*' -f $(name)_$(deb_version).orig.tar.gz $(name)-$(deb_version)/*
+	@rm -rf $(name)-$(deb_version)
 
 prepare-debbuilddir: srcdist
-        @mkdir -p $(debbuild_dir)
-        @cp $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)/$(name)_$(deb_version).orig.tar.gz
-        @cd $(debbuild_dir) && tar xzvf $(name)_$(deb_version).orig.tar.gz
-        @echo "done"
+	@mkdir -p $(debbuild_dir)
+	@cp $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)/$(name)_$(deb_version).orig.tar.gz
+	@cd $(debbuild_dir) && tar xzvf $(name)_$(deb_version).orig.tar.gz
+	@echo "done"
 
 deb-src: prepare-debbuilddir
-        cd $(debbuild_dir) && dpkg-source -b $(name)-$(deb_version)
+	cd $(debbuild_dir) && dpkg-source -b $(name)-$(deb_version)
 
 deb: print-info deb-src
-        cd $(debbuild_dir)/$(name)-$(deb_version) && debuild -us -uc
+	cd $(debbuild_dir)/$(name)-$(deb_version) && debuild -us -uc
 
 clean:
-        @rm -rf $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)
+	@rm -rf $(name)_$(deb_version).orig.tar.gz $(debbuild_dir)
 
