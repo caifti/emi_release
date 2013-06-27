@@ -46,7 +46,7 @@ prepare-debbuilddir: srcdist
 deb-src: prepare-debbuilddir
 	cd $(debbuild_dir) && dpkg-source -b $(name)-$(deb_version)
 
-deb: print-info deb-src
+deb: deb-src
 	cd $(debbuild_dir)/$(name)-$(deb_version) && debuild -us -uc
 
 clean:
